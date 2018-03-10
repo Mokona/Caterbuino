@@ -1,0 +1,6 @@
+﻿---
+BasedOnStyle: WebKit
+MaxEmptyLinesToKeep: '1'
+NamespaceIndentation: All
+
+...
