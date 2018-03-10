@@ -12,9 +12,12 @@ GameRunning::GameRunning()
 
     auto& captured_fruit_collection = fruitCollection;
     auto& captured_snake = snake;
-    snake.on_eat([&captured_fruit_collection, &captured_snake](const Position& position) {
-        captured_fruit_collection.remove_fruit(position);
+    snake.on_eat([&captured_fruit_collection, &captured_snake, &captured_score](const Fruit& fruit) {
+        captured_fruit_collection.remove_fruit(fruit.position);
         captured_snake.grow();
+
+        const int score = (50 * fruit.life) / fruit.max_life();
+        captured_score += score;
     });
 }
 
@@ -37,6 +40,7 @@ void GameRunning::update()
 
     snake.update(1, space, fruitCollection);
     fruitGenerator.update(1, fruitCollection, space, snake);
+    fruitCollection.update(1);
 
     fruitCollection.display();
     snake.display(dsp);

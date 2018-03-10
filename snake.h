@@ -7,6 +7,7 @@
 #include <functional>
 
 class DisplayCollector;
+class Fruit;
 class FruitCollection;
 class GameSpace;
 
@@ -26,7 +27,7 @@ public:
     void grow();
 
     using move_cb_type = std::function<void()>;
-    using eat_cb_type = std::function<void(const Position&)>;
+    using eat_cb_type = std::function<void(const Fruit&)>;
 
     void on_move(move_cb_type cb);
     void on_eat(eat_cb_type cb);
