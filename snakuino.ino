@@ -27,7 +27,7 @@ void loop()
 
     game->update();
 
-    static bool displayProfile = true;
+    static bool displayProfile = false;
     if (gb.buttons.pressed(BUTTON_B)) {
 
         displayProfile = !displayProfile;

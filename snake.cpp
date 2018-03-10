@@ -3,6 +3,15 @@
 #include "display.h"
 #include "game_space.h"
 
+// Because the library for Arduino seems incomplete
+namespace std {
+    void __throw_bad_function_call()
+    {
+        while (1)
+            ;
+    }
+}
+
 namespace {
     const uint8_t tickForStep = 10;
 }
@@ -38,6 +47,8 @@ void Snake::move(const GameSpace& space)
     if (space.contains(new_head)) {
         positions.push_back(new_head);
         positions.pop_front();
+
+        on_move_cb();
     }
     // else : DEAD
 }
@@ -60,4 +71,9 @@ void Snake::left()
 void Snake::right()
 {
     next_movement = { 1, 0 };
+}
+
+void Snake::on_move(std::function<void()> cb)
+{
+    on_move_cb = cb;
 }

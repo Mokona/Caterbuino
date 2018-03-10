@@ -5,6 +5,10 @@
 GameRunning::GameRunning()
     : space(0, 0, 10, 7)
 {
+    auto& captured_score = score;
+    snake.on_move([&captured_score]() {
+        captured_score += 1;
+    });
 }
 
 void GameRunning::update()
@@ -25,4 +29,6 @@ void GameRunning::update()
     dsp.begin();
     snake.update(1, space);
     snake.display(dsp);
+
+    score.display();
 }
