@@ -1,56 +1,38 @@
 #include <Gamebuino-Meta.h>
 
+// Because Arduino has min/max macros that conflicts with STL
+#undef max
+#undef min
+
+#include "gameinit.h"
 #include "profile.h"
-#include "snake.h"
-#include "display.h"
-#include "game_space.h"
 
-void setup() {
-  gb.begin();
-  gb.setFrameRate(25);
-}
+#include <memory>
 
-int clamp(int minimum, int maximum, int value)
+std::unique_ptr<GameState> game;
+
+void setup()
 {
-  value = min(value, maximum);
-  value = max(value, minimum);
-  return value;
-}
+    gb.begin();
+    gb.setFrameRate(25);
 
-Snake snake;
-DisplayCollector dsp;
-GameSpace space(0, 0, 10, 7);
+    game = create_game();
+}
 
 void loop()
 {
-  while (!gb.update());
-  gb.display.clear();
+    while (!gb.update())
+        ;
+    gb.display.clear();
 
-  if (gb.buttons.timeHeld(BUTTON_UP) > 0) {
-    snake.up();
-  }
-  if (gb.buttons.timeHeld(BUTTON_DOWN) > 0) {
-    snake.down();
-  }
-  if (gb.buttons.timeHeld(BUTTON_LEFT) > 0) {
-    snake.left();
-  }
-  if (gb.buttons.timeHeld(BUTTON_RIGHT) > 0) {
-    snake.right();
-  }
+    game->update();
 
-  dsp.begin();
-  snake.update(1, space);
-  snake.display(dsp);
+    static bool displayProfile = true;
+    if (gb.buttons.pressed(BUTTON_B)) {
 
-  static bool displayProfile = true;
-  if (gb.buttons.pressed(BUTTON_B)) {
-
-    displayProfile = !displayProfile;
-  }
-  if(displayProfile) {
-    displayProfileInfo();
-  }
-  
+        displayProfile = !displayProfile;
+    }
+    if (displayProfile) {
+        displayProfileInfo();
+    }
 }
-
