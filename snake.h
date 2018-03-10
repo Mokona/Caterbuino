@@ -23,6 +23,8 @@ public:
     void left();
     void right();
 
+    void grow();
+
     using move_cb_type = std::function<void()>;
     using eat_cb_type = std::function<void(const Position&)>;
 
@@ -34,11 +36,12 @@ private:
     void eat(const FruitCollection& fruits);
 
 private:
-    array<Position, 32> positions;
+    array<Position, 42> positions;
     Vector2D<int8_t> next_movement;
 
     move_cb_type on_move_cb;
     eat_cb_type on_eat_cb;
 
     uint8_t tickAccumulator;
+    bool growing;
 };

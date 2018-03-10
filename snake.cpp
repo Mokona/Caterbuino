@@ -19,6 +19,7 @@ namespace {
 
 Snake::Snake()
     : next_movement{ 1, 0 }
+    , growing(false)
 {
     positions.push_back(Position{ 3, 4 }).push_back(Position{ 4, 4 });
 }
@@ -58,7 +59,10 @@ void Snake::move(const GameSpace& space)
 
     if (space.contains(new_head)) {
         positions.push_back(new_head);
-        positions.pop_front();
+        if (!growing || positions.full()) {
+            positions.pop_front();
+        }
+        growing = false;
 
         on_move_cb();
     }
@@ -68,6 +72,11 @@ void Snake::eat(const FruitCollection& fruits)
 {
     const auto& head = positions.last();
     fruits.try_eat_fruit(head, on_eat_cb);
+}
+
+void Snake::grow()
+{
+    growing = true;
 }
 
 void Snake::up()

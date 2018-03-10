@@ -56,6 +56,11 @@ public:
         }
     }
 
+    bool full() const
+    {
+        return size == MAX_SIZE;
+    }
+
 private:
     T elements[MAX_SIZE];
     size_t size;

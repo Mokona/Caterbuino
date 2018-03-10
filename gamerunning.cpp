@@ -11,8 +11,10 @@ GameRunning::GameRunning()
     });
 
     auto& captured_fruit_collection = fruitCollection;
-    snake.on_eat([&captured_fruit_collection](const Position& position) {
+    auto& captured_snake = snake;
+    snake.on_eat([&captured_fruit_collection, &captured_snake](const Position& position) {
         captured_fruit_collection.remove_fruit(position);
+        captured_snake.grow();
     });
 }
 
