@@ -32,13 +32,17 @@ public:
     void on_move(move_cb_type cb);
     void on_eat(eat_cb_type cb);
 
+    using movement_type = Vector2D<int8_t>;
+
 private:
     void move(const GameSpace& space);
     void eat(const FruitCollection& fruits);
 
 private:
+    movement_type next_movement;
+    movement_type current_movement;
+
     array<Position, 42> positions;
-    Vector2D<int8_t> next_movement;
 
     move_cb_type on_move_cb;
     eat_cb_type on_eat_cb;

@@ -15,10 +15,16 @@ namespace std {
 
 namespace {
     const uint8_t tickForStep = 10;
+
+    const Snake::movement_type UP_MOVEMENT = { 0, -1 };
+    const Snake::movement_type DOWN_MOVEMENT = { 0, 1 };
+    const Snake::movement_type LEFT_MOVEMENT = { -1, 0 };
+    const Snake::movement_type RIGHT_MOVEMENT = { 1, 0 };
 }
 
 Snake::Snake()
     : next_movement{ 1, 0 }
+    , current_movement(next_movement)
     , growing(false)
 {
     positions.push_back(Position{ 3, 4 }).push_back(Position{ 4, 4 });
@@ -54,6 +60,8 @@ bool Snake::is_at(const Position& position) const
 
 void Snake::move(const GameSpace& space)
 {
+    current_movement = next_movement;
+
     const auto& head = positions.last();
     const auto new_head = head + next_movement;
 
@@ -81,22 +89,30 @@ void Snake::grow()
 
 void Snake::up()
 {
-    next_movement = { 0, -1 };
+    if (current_movement != DOWN_MOVEMENT) {
+        next_movement = UP_MOVEMENT;
+    }
 }
 
 void Snake::down()
 {
-    next_movement = { 0, 1 };
+    if (current_movement != UP_MOVEMENT) {
+        next_movement = DOWN_MOVEMENT;
+    }
 }
 
 void Snake::left()
 {
-    next_movement = { -1, 0 };
+    if (current_movement != RIGHT_MOVEMENT) {
+        next_movement = LEFT_MOVEMENT;
+    }
 }
 
 void Snake::right()
 {
-    next_movement = { 1, 0 };
+    if (current_movement != LEFT_MOVEMENT) {
+        next_movement = RIGHT_MOVEMENT;
+    }
 }
 
 void Snake::on_move(move_cb_type cb)
