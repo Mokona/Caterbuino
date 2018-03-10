@@ -66,13 +66,17 @@ void Snake::move(const GameSpace& space)
     const auto new_head = head + next_movement;
 
     if (space.contains(new_head)) {
-        positions.push_back(new_head);
-        if (!growing || positions.full()) {
-            positions.pop_front();
-        }
-        growing = false;
+        if (is_at(new_head)) {
+            on_self_collision_cb();
+        } else {
+            positions.push_back(new_head);
+            if (!growing || positions.full()) {
+                positions.pop_front();
+            }
+            growing = false;
 
-        on_move_cb();
+            on_move_cb();
+        }
     }
 }
 
@@ -123,4 +127,9 @@ void Snake::on_move(move_cb_type cb)
 void Snake::on_eat(eat_cb_type cb)
 {
     on_eat_cb = cb;
+}
+
+void Snake::on_self_collision(move_cb_type cb)
+{
+    on_self_collision_cb = cb;
 }

@@ -19,6 +19,10 @@ GameRunning::GameRunning()
         const int score = (50 * fruit.life) / fruit.max_life();
         captured_score += score;
     });
+
+    snake.on_self_collision([this]() {
+        self_collision();
+    });
 }
 
 void GameRunning::update()
@@ -45,4 +49,8 @@ void GameRunning::update()
     fruitCollection.display();
     snake.display(dsp);
     score.display();
+}
+
+void GameRunning::self_collision()
+{
 }

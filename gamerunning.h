@@ -16,6 +16,9 @@ public:
     void update() override;
 
 private:
+    void self_collision();
+
+private:
     GameSpace space;
     Snake snake;
     FruitCollection fruitCollection;
