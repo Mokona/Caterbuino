@@ -9,6 +9,11 @@ GameRunning::GameRunning()
     snake.on_move([&captured_score]() {
         captured_score += 1;
     });
+
+    auto& captured_fruit_collection = fruitCollection;
+    snake.on_eat([&captured_fruit_collection](const Position& position) {
+        captured_fruit_collection.remove_fruit(position);
+    });
 }
 
 void GameRunning::update()
@@ -28,7 +33,7 @@ void GameRunning::update()
 
     dsp.begin();
 
-    snake.update(1, space);
+    snake.update(1, space, fruitCollection);
     fruitGenerator.update(1, fruitCollection, space, snake);
 
     fruitCollection.display();

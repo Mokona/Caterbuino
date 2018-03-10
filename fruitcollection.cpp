@@ -36,3 +36,23 @@ void FruitCollection::add_fruit(const Position& position)
         }
     }
 }
+
+void FruitCollection::remove_fruit(const Position& position)
+{
+    for (auto& fruit_position : fruits) {
+        if (fruit_position == position) {
+            const Position nullPosition{ 0, 0 };
+            fruit_position = nullPosition;
+            break;
+        }
+    }
+}
+
+void FruitCollection::try_eat_fruit(const Position& position, std::function<void(const Position& position)> eat_cb) const
+{
+    for (const auto& fruit_position : fruits) {
+        if (fruit_position == position) {
+            eat_cb(position);
+        }
+    }
+}

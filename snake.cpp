@@ -1,6 +1,7 @@
 #include "snake.h"
 
 #include "display.h"
+#include "fruitcollection.h"
 #include "game_space.h"
 
 // Because the library for Arduino seems incomplete
@@ -29,13 +30,14 @@ void Snake::display(DisplayCollector& dsp)
     });
 }
 
-void Snake::update(uint8_t tick, const GameSpace& space)
+void Snake::update(uint8_t tick, const GameSpace& space, const FruitCollection& fruits)
 {
     tickAccumulator += tick;
 
     if (tickAccumulator >= tickForStep) {
         tickAccumulator -= tickForStep;
         move(space);
+        eat(fruits);
     }
 }
 
@@ -60,7 +62,12 @@ void Snake::move(const GameSpace& space)
 
         on_move_cb();
     }
-    // else : DEAD
+}
+
+void Snake::eat(const FruitCollection& fruits)
+{
+    const auto& head = positions.last();
+    fruits.try_eat_fruit(head, on_eat_cb);
 }
 
 void Snake::up()
@@ -83,7 +90,12 @@ void Snake::right()
     next_movement = { 1, 0 };
 }
 
-void Snake::on_move(std::function<void()> cb)
+void Snake::on_move(move_cb_type cb)
 {
     on_move_cb = cb;
+}
+
+void Snake::on_eat(eat_cb_type cb)
+{
+    on_eat_cb = cb;
 }
