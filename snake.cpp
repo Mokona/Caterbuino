@@ -39,6 +39,16 @@ void Snake::update(uint8_t tick, const GameSpace& space)
     }
 }
 
+bool Snake::is_at(const Position& position) const
+{
+    bool found = false;
+    positions.foreach ([&found, &position](const Position& p) {
+        found |= (p == position);
+    });
+
+    return found;
+}
+
 void Snake::move(const GameSpace& space)
 {
     const auto& head = positions.last();

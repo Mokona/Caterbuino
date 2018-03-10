@@ -14,6 +14,7 @@ public:
     Snake();
     void update(uint8_t tick, const GameSpace& space);
     void display(DisplayCollector& dsp);
+    bool is_at(const Position& position) const;
 
     void up();
     void down();

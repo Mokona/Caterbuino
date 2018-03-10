@@ -27,8 +27,11 @@ void GameRunning::update()
     }
 
     dsp.begin();
-    snake.update(1, space);
-    snake.display(dsp);
 
+    snake.update(1, space);
+    fruitGenerator.update(1, fruitCollection, space, snake);
+
+    fruitCollection.display();
+    snake.display(dsp);
     score.display();
 }

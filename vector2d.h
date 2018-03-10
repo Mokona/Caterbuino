@@ -16,3 +16,15 @@ auto operator+(T1&& a, T2&& b)
         a.y + b.y
     };
 }
+
+template <typename T1, typename T2>
+bool operator==(T1&& a, T2&& b)
+{
+    return a.x == b.x && a.y == b.y;
+}
+
+template <typename T1, typename T2>
+bool operator!=(T1&& a, T2&& b)
+{
+    return !(a == b);
+}

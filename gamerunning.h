@@ -1,8 +1,11 @@
 #pragma once
 
-#include "display.h"
-#include "game_space.h"
 #include "gamestate.h"
+
+#include "display.h"
+#include "fruitcollection.h"
+#include "fruitgenerator.h"
+#include "game_space.h"
 #include "score.h"
 #include "snake.h"
 
@@ -13,8 +16,10 @@ public:
     void update() override;
 
 private:
-    DisplayCollector dsp;
     GameSpace space;
     Snake snake;
+    FruitCollection fruitCollection;
+    FruitGenerator fruitGenerator;
     Score score;
+    DisplayCollector dsp;
 };
