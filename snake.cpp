@@ -32,6 +32,7 @@ Snake::Snake()
 
 void Snake::display(DisplayCollector& dsp)
 {
+    dsp.head_direction(next_movement);
     positions.rforeach([&dsp](const Position& p) {
         dsp.push(p);
     });

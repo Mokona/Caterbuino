@@ -3,11 +3,13 @@
 #include "position.h"
 
 class DisplayCollector {
-  public:
+public:
     void begin();
-    void push(const Position & position);
 
-  private:
+    void head_direction(const Vector2D<int8_t> direction);
+    void push(const Position& position);
+
+private:
+    Vector2D<int8_t> direction;
     bool head;
 };
-
