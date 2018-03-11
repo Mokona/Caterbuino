@@ -56,6 +56,14 @@ public:
         }
     }
 
+    template <typename F>
+    void rforeach(F function)
+    {
+        for (int i = size; i > 0; i--) {
+            function(elements[i - 1]);
+        }
+    }
+
     bool full() const
     {
         return size == MAX_SIZE;

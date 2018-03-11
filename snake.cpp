@@ -32,7 +32,7 @@ Snake::Snake()
 
 void Snake::display(DisplayCollector& dsp)
 {
-    positions.foreach ([&dsp](const Position& p) {
+    positions.rforeach([&dsp](const Position& p) {
         dsp.push(p);
     });
 }
