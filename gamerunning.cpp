@@ -77,5 +77,5 @@ std::unique_ptr<GameState> GameRunning::new_state()
 {
     assert(gameOver);
     gameOver = false;
-    return std::unique_ptr<GameState>(new GameOver());
+    return std::unique_ptr<GameState>(new GameOver(score));
 }

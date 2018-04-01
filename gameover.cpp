@@ -1,24 +1,56 @@
 #include "gameover.h"
 
-#include <Gamebuino-Meta.h>
+#include "gamerunning.h"
 
-GameOver::GameOver()
+#include <Gamebuino-Meta.h>
+#include <cassert>
+
+GameOver::GameOver(Score score)
+    : score(score)
 {
 }
 
 void GameOver::update()
 {
+    if (restartGame) {
+        return;
+    }
+
     gb.display.setColor(Color::white);
-    gb.display.setCursor(1, 58);
-    gb.display.print("GAME OVER");
+    gb.display.setFontSize(2);
+    gb.display.setCursor(5, 8);
+    gb.display.println("GAME OVER");
+
+    score.display();
+
+    if (timeBeforeRetry > 0) {
+        timeBeforeRetry -= 1;
+
+    } else {
+        gb.display.setFontSize(1);
+        gb.display.setCursor(1, 35);
+        gb.display.println("PRESS 'A'");
+        gb.display.println("TO PLAY AGAIN");
+
+        if (gb.buttons.pressed(BUTTON_A)) {
+            play_again();
+        }
+    }
+}
+
+void GameOver::play_again()
+{
+    restartGame = true;
 }
 
 bool GameOver::finished()
 {
-    return false;
+    return restartGame;
 }
 
 std::unique_ptr<GameState> GameOver::new_state()
 {
-    return nullptr;
+    assert(restartGame);
+    restartGame = false;
+    return std::unique_ptr<GameState>(new GameRunning());
 }
