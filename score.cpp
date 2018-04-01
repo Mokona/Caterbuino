@@ -12,6 +12,7 @@ Score& Score::operator+=(int16_t change)
 void Score::display()
 {
     gb.display.setColor(Color::white);
+    gb.display.setFontSize(1);
     gb.display.setCursor(1, 58);
     gb.display.print("SCORE:");
     gb.display.print(value);
