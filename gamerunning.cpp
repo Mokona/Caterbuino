@@ -1,6 +1,9 @@
 #include "gamerunning.h"
 
+#include "gameover.h"
+
 #include <Gamebuino-Meta.h>
+#include <cassert>
 
 GameRunning::GameRunning()
     : space(0, 0, 10, 7)
@@ -53,4 +56,17 @@ void GameRunning::update()
 
 void GameRunning::self_collision()
 {
+    gameOver = true;
+}
+
+bool GameRunning::finished()
+{
+    return gameOver;
+}
+
+GameState* GameRunning::new_state()
+{
+    assert(gameOver);
+    gameOver = false;
+    return new GameOver();
 }

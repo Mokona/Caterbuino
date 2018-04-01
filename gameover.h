@@ -7,4 +7,6 @@ public:
     GameOver();
 
     void update() override;
+    bool finished() override;
+    GameState* new_state() override;
 };

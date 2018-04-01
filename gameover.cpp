@@ -12,3 +12,13 @@ void GameOver::update()
     gb.display.setCursor(1, 58);
     gb.display.print("GAME OVER");
 }
+
+bool GameOver::finished()
+{
+    return false;
+}
+
+GameState* GameOver::new_state()
+{
+    return nullptr;
+}

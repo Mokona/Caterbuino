@@ -14,6 +14,8 @@ public:
     GameRunning();
 
     void update() override;
+    bool finished() override;
+    GameState* new_state() override;
 
 private:
     void self_collision();
@@ -25,4 +27,5 @@ private:
     FruitGenerator fruitGenerator;
     Score score;
     DisplayCollector dsp;
+    bool gameOver = false;
 };

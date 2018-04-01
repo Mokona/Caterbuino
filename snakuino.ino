@@ -35,4 +35,11 @@ void loop()
     if (displayProfile) {
         displayProfileInfo();
     }
+
+    if (game->finished()) {
+        auto newGameState = game->new_state();
+        if (newGameState) {
+            game.reset(newGameState);
+        }
+    }
 }
