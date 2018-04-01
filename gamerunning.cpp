@@ -26,6 +26,10 @@ GameRunning::GameRunning()
     snake.on_self_collision([this]() {
         self_collision();
     });
+
+    snake.on_out_of_bounds([this]() {
+        out_of_bounds();
+    });
 }
 
 void GameRunning::update()
@@ -55,6 +59,11 @@ void GameRunning::update()
 }
 
 void GameRunning::self_collision()
+{
+    gameOver = true;
+}
+
+void GameRunning::out_of_bounds()
 {
     gameOver = true;
 }

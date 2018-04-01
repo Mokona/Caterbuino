@@ -32,6 +32,7 @@ public:
     void on_move(move_cb_type cb);
     void on_eat(eat_cb_type cb);
     void on_self_collision(move_cb_type cb);
+    void on_out_of_bounds(move_cb_type cb);
 
     using movement_type = Vector2D<int8_t>;
 
@@ -48,6 +49,7 @@ private:
     move_cb_type on_move_cb;
     eat_cb_type on_eat_cb;
     move_cb_type on_self_collision_cb;
+    move_cb_type on_out_of_bounds_cb;
 
     uint8_t tickAccumulator;
     bool growing;

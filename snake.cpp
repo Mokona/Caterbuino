@@ -78,6 +78,8 @@ void Snake::move(const GameSpace& space)
 
             on_move_cb();
         }
+    } else {
+        on_out_of_bounds_cb();
     }
 }
 
@@ -133,4 +135,9 @@ void Snake::on_eat(eat_cb_type cb)
 void Snake::on_self_collision(move_cb_type cb)
 {
     on_self_collision_cb = cb;
+}
+
+void Snake::on_out_of_bounds(move_cb_type cb)
+{
+    on_out_of_bounds_cb = cb;
 }
