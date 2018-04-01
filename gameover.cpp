@@ -18,7 +18,7 @@ bool GameOver::finished()
     return false;
 }
 
-GameState* GameOver::new_state()
+std::unique_ptr<GameState> GameOver::new_state()
 {
     return nullptr;
 }

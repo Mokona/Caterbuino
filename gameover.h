@@ -8,5 +8,5 @@ public:
 
     void update() override;
     bool finished() override;
-    GameState* new_state() override;
+    std::unique_ptr<GameState> new_state() override;
 };

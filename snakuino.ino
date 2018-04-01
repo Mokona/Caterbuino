@@ -39,7 +39,7 @@ void loop()
     if (game->finished()) {
         auto newGameState = game->new_state();
         if (newGameState) {
-            game.reset(newGameState);
+            game.reset(newGameState.release());
         }
     }
 }

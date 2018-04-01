@@ -73,9 +73,9 @@ bool GameRunning::finished()
     return gameOver;
 }
 
-GameState* GameRunning::new_state()
+std::unique_ptr<GameState> GameRunning::new_state()
 {
     assert(gameOver);
     gameOver = false;
-    return new GameOver();
+    return std::unique_ptr<GameState>(new GameOver());
 }
