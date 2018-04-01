@@ -5,6 +5,24 @@
 #include <Gamebuino-Meta.h>
 #include <cassert>
 
+namespace {
+    void process_keys(Snake& snake)
+    {
+        if (gb.buttons.timeHeld(BUTTON_UP) > 0) {
+            snake.up();
+        }
+        if (gb.buttons.timeHeld(BUTTON_DOWN) > 0) {
+            snake.down();
+        }
+        if (gb.buttons.timeHeld(BUTTON_LEFT) > 0) {
+            snake.left();
+        }
+        if (gb.buttons.timeHeld(BUTTON_RIGHT) > 0) {
+            snake.right();
+        }
+    }
+}
+
 GameRunning::GameRunning()
     : space(0, 0, 10, 7)
 {
@@ -34,18 +52,7 @@ GameRunning::GameRunning()
 
 void GameRunning::update()
 {
-    if (gb.buttons.timeHeld(BUTTON_UP) > 0) {
-        snake.up();
-    }
-    if (gb.buttons.timeHeld(BUTTON_DOWN) > 0) {
-        snake.down();
-    }
-    if (gb.buttons.timeHeld(BUTTON_LEFT) > 0) {
-        snake.left();
-    }
-    if (gb.buttons.timeHeld(BUTTON_RIGHT) > 0) {
-        snake.right();
-    }
+    process_keys(snake);
 
     dsp.begin();
 
