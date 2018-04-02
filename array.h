@@ -1,75 +1,35 @@
 #pragma once
 
-#include <cstdlib>
+#include <iterator>
 
-template <typename T, int MAX_SIZE>
-class array {
-public:
-    array()
-        : size(0)
-    {
-    }
+template <typename I>
+std::reverse_iterator<I> make_reverse_iterator(I i)
+{
+    return std::reverse_iterator<I>{ i };
+}
 
-    array<T, MAX_SIZE>& push_back(const T& elt)
-    {
-        if (size < MAX_SIZE - 1) {
-            elements[size] = elt;
-            size += 1;
-        }
+template <typename T>
+auto rbegin(T& iterable)
+{
+    return make_reverse_iterator(iterable.end());
+}
 
-        return *this;
-    }
+template <typename T>
+auto rend(T& iterable)
+{
+    return make_reverse_iterator(iterable.begin());
+}
 
-    array<T, MAX_SIZE>& pop_front()
-    {
-        if (size > 0) {
-            for (int i = 1; i < size; i++) {
-                elements[i - 1] = elements[i];
-            }
-            size -= 1;
-        }
-
-        return *this;
-    }
-
-    const T& last() const
-    {
-        if (size > 0) {
-            return elements[size - 1];
-        }
-        return T{};
-    }
-
-    template <typename F>
-    void foreach (F function)
-    {
-        for (int i = 0; i < size; i++) {
-            function(elements[i]);
-        }
-    }
-
-    template <typename F>
-    void foreach (F function) const
-    {
-        for (int i = 0; i < size; i++) {
-            function(elements[i]);
-        }
-    }
-
-    template <typename F>
-    void rforeach(F function)
-    {
-        for (int i = size; i > 0; i--) {
-            function(elements[i - 1]);
-        }
-    }
-
-    bool full() const
-    {
-        return size == MAX_SIZE;
-    }
-
-private:
-    T elements[MAX_SIZE];
-    size_t size;
+template <typename T>
+struct reversion_wrapper {
+    T& iterable;
 };
+
+template <typename T>
+auto begin(reversion_wrapper<T> w) { return rbegin(w.iterable); }
+
+template <typename T>
+auto end(reversion_wrapper<T> w) { return rend(w.iterable); }
+
+template <typename T>
+reversion_wrapper<T> reverse(T&& iterable) { return { iterable }; }

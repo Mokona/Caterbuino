@@ -1,10 +1,10 @@
 #pragma once
 
-#include "array.h"
 #include "position.h"
 #include "vector2d.h"
 
 #include <functional>
+#include <vector>
 
 class DisplayCollector;
 class Fruit;
@@ -44,7 +44,7 @@ private:
     movement_type next_movement;
     movement_type current_movement;
 
-    array<Position, 42> positions;
+    std::vector<Position> positions;
 
     move_cb_type on_move_cb;
     eat_cb_type on_eat_cb;

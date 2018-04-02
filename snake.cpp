@@ -1,5 +1,6 @@
 #include "snake.h"
 
+#include "array.h"
 #include "display.h"
 #include "fruitcollection.h"
 #include "game_space.h"
@@ -10,6 +11,24 @@ namespace std {
     {
         while (1)
             ;
+    }
+
+    void __throw_bad_alloc()
+    {
+        while (1)
+            ;
+    }
+
+    void __throw_length_error(const char*)
+    {
+        while (1)
+            ;
+    }
+
+    template <typename T>
+    bool is_full(const std::vector<T>& t)
+    {
+        return t.size() == t.capacity();
     }
 }
 
@@ -27,15 +46,18 @@ Snake::Snake()
     , current_movement(next_movement)
     , growing(false)
 {
-    positions.push_back(Position{ 3, 4 }).push_back(Position{ 4, 4 });
+    positions.reserve(42);
+    positions.push_back(Position{ 3, 4 });
+    positions.push_back(Position{ 4, 4 });
 }
 
 void Snake::display(DisplayCollector& dsp)
 {
     dsp.head_direction(next_movement);
-    positions.rforeach([&dsp](const Position& p) {
+
+    for (const auto& p : reverse(positions)) {
         dsp.push(p);
-    });
+    }
 }
 
 void Snake::update(uint8_t tick, const GameSpace& space, const FruitCollection& fruits)
@@ -52,9 +74,9 @@ void Snake::update(uint8_t tick, const GameSpace& space, const FruitCollection& 
 bool Snake::is_at(const Position& position) const
 {
     bool found = false;
-    positions.foreach ([&found, &position](const Position& p) {
+    for (const auto& p : positions) {
         found |= (p == position);
-    });
+    }
 
     return found;
 }
@@ -63,7 +85,7 @@ void Snake::move(const GameSpace& space)
 {
     current_movement = next_movement;
 
-    const auto& head = positions.last();
+    const auto& head = positions.back();
     const auto new_head = head + next_movement;
 
     if (space.contains(new_head)) {
@@ -71,8 +93,8 @@ void Snake::move(const GameSpace& space)
             on_self_collision_cb();
         } else {
             positions.push_back(new_head);
-            if (!growing || positions.full()) {
-                positions.pop_front();
+            if (!growing || is_full(positions)) {
+                positions.erase(positions.begin());
             }
             growing = false;
 
@@ -85,7 +107,7 @@ void Snake::move(const GameSpace& space)
 
 void Snake::eat(const FruitCollection& fruits)
 {
-    const auto& head = positions.last();
+    const auto& head = positions.back();
     fruits.try_eat_fruit(head, on_eat_cb);
 }
 
