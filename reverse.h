@@ -1,3 +1,5 @@
+// Reversion wrapper taken from: https://stackoverflow.com/a/28139075
+
 #pragma once
 
 #include <iterator>
@@ -26,10 +28,19 @@ struct reversion_wrapper {
 };
 
 template <typename T>
-auto begin(reversion_wrapper<T> w) { return rbegin(w.iterable); }
+auto begin(reversion_wrapper<T> w)
+{
+    return rbegin(w.iterable);
+}
 
 template <typename T>
-auto end(reversion_wrapper<T> w) { return rend(w.iterable); }
+auto end(reversion_wrapper<T> w)
+{
+    return rend(w.iterable);
+}
 
 template <typename T>
-reversion_wrapper<T> reverse(T&& iterable) { return { iterable }; }
+reversion_wrapper<T> reverse(T&& iterable)
+{
+    return { iterable };
+}

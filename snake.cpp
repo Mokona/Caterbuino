@@ -1,9 +1,9 @@
 #include "snake.h"
 
-#include "array.h"
 #include "display.h"
 #include "fruitcollection.h"
 #include "game_space.h"
+#include "reverse.h"
 
 namespace {
     const uint8_t tickForStep = 10;
