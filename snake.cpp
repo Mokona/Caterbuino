@@ -5,33 +5,6 @@
 #include "fruitcollection.h"
 #include "game_space.h"
 
-// Because the library for Arduino seems incomplete
-namespace std {
-    void __throw_bad_function_call()
-    {
-        while (1)
-            ;
-    }
-
-    void __throw_bad_alloc()
-    {
-        while (1)
-            ;
-    }
-
-    void __throw_length_error(const char*)
-    {
-        while (1)
-            ;
-    }
-
-    template <typename T>
-    bool is_full(const std::vector<T>& t)
-    {
-        return t.size() == t.capacity();
-    }
-}
-
 namespace {
     const uint8_t tickForStep = 10;
 
@@ -39,6 +12,12 @@ namespace {
     const Snake::movement_type DOWN_MOVEMENT = { 0, 1 };
     const Snake::movement_type LEFT_MOVEMENT = { -1, 0 };
     const Snake::movement_type RIGHT_MOVEMENT = { 1, 0 };
+
+    template <typename T>
+    bool is_full(const std::vector<T>& t)
+    {
+        return t.size() == t.capacity();
+    }
 }
 
 Snake::Snake()
