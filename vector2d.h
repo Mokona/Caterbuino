@@ -9,22 +9,22 @@ struct Vector2D {
 };
 
 template <typename T1, typename T2>
-auto operator+(T1&& a, T2&& b)
+auto operator+(const Vector2D<T1>& a, const Vector2D<T2>& b)
 {
-    return T1{
+    return Vector2D<T1>{
         a.x + b.x,
         a.y + b.y
     };
 }
 
 template <typename T1, typename T2>
-bool operator==(T1&& a, T2&& b)
+bool operator==(const Vector2D<T1>& a, const Vector2D<T2>& b)
 {
     return a.x == b.x && a.y == b.y;
 }
 
 template <typename T1, typename T2>
-bool operator!=(T1&& a, T2&& b)
+bool operator!=(const Vector2D<T1>& a, const Vector2D<T2>& b)
 {
     return !(a == b);
 }
