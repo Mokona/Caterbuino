@@ -7,6 +7,7 @@
 
 namespace {
     const uint8_t tickForStep = 10;
+    const size_t MAXIMUM_SNAKE_LENGTH = 42;
 
     const Snake::movement_type UP_MOVEMENT = { 0, -1 };
     const Snake::movement_type DOWN_MOVEMENT = { 0, 1 };
@@ -25,7 +26,7 @@ Snake::Snake()
     , current_movement(next_movement)
     , growing(false)
 {
-    positions.reserve(42);
+    positions.reserve(MAXIMUM_SNAKE_LENGTH);
     positions.push_back(Position{ 3, 4 });
     positions.push_back(Position{ 4, 4 });
 }
