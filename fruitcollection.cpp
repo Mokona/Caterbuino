@@ -26,8 +26,6 @@ void FruitCollection::display()
 {
     const uint8_t width = 8;
     const uint8_t height = 8;
-    const uint8_t shift_w = 2;
-    const uint8_t shift_h = 2;
 
     const auto caterpillar = getCaterpillarData();
     Image spritesheet(caterpillar);

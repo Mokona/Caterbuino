@@ -25,9 +25,6 @@ void DisplayCollector::push(const Position& position)
     const auto corrected_x = position.x * width;
     const auto corrected_y = position.y * height;
 
-    //gb.display.setColor(Color::white);
-    //gb.display.fillRoundRect(corrected_x, corrected_y, width, height, 2);
-
     int frame = 2;
 
     if (head) {
