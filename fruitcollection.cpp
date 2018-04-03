@@ -6,7 +6,8 @@
 #include <Gamebuino-Meta.h>
 
 namespace {
-    const int INITIAL_FRUIT_LIFE = 2000;
+    const int INITIAL_FRUIT_LIFE = 225;
+    const size_t MAXIMUM_FRUIT = 10;
 }
 
 int Fruit::max_life()
@@ -16,11 +17,7 @@ int Fruit::max_life()
 
 FruitCollection::FruitCollection()
 {
-    const Position nullPosition{ 0, 0 };
-    for (auto& fruit : fruits) {
-        fruit.position = nullPosition;
-        fruit.life = 0;
-    }
+    fruits.reserve(MAXIMUM_FRUIT);
 }
 
 void FruitCollection::display()
@@ -29,11 +26,8 @@ void FruitCollection::display()
     Image spritesheet(caterpillar);
     spritesheet.setFrame(0);
 
-    const Position nullPosition{ 0, 0 };
     for (const auto& fruit : fruits) {
-        if (fruit.position != nullPosition) {
-            drawImageOnGrid(fruit.position, spritesheet);
-        }
+        drawImageOnGrid(fruit.position, spritesheet);
     }
 }
 
@@ -42,22 +36,20 @@ void FruitCollection::update(int tick)
     for (auto& fruit : fruits) {
         fruit.life -= tick;
         if (fruit.life <= 0) {
-            const Position nullPosition{ 0, 0 };
-            fruit.position = nullPosition;
-            fruit.life = 0;
+            // Only removes one fruit at a time
+            // Anyway, all fruits should have different lifetime as
+            // they never appear at the same time.
+            fruit = fruits.back();
+            fruits.pop_back();
+            break;
         }
     }
 }
 
 void FruitCollection::add_fruit(const Position& position)
 {
-    const Position nullPosition{ 0, 0 };
-    for (auto& fruit : fruits) {
-        if (fruit.position == nullPosition) {
-            fruit.position = position;
-            fruit.life = INITIAL_FRUIT_LIFE;
-            break;
-        }
+    if (fruits.size() < fruits.capacity()) {
+        fruits.push_back(Fruit{ position, INITIAL_FRUIT_LIFE });
     }
 }
 
@@ -65,8 +57,8 @@ void FruitCollection::remove_fruit(const Position& position)
 {
     for (auto& fruit : fruits) {
         if (fruit.position == position) {
-            const Position nullPosition{ 0, 0 };
-            fruit.position = nullPosition;
+            fruit = fruits.back();
+            fruits.pop_back();
             break;
         }
     }

@@ -2,9 +2,9 @@
 
 #include "position.h"
 
-#include <array>
 #include <cstdint>
 #include <functional>
+#include <vector>
 
 struct Fruit {
     Position position;
@@ -25,5 +25,5 @@ public:
     void try_eat_fruit(const Position& position, std::function<void(const Fruit& fruit)> eat_cb) const;
 
 private:
-    std::array<Fruit, 16> fruits;
+    std::vector<Fruit> fruits;
 };
