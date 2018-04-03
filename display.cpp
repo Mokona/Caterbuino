@@ -1,6 +1,7 @@
 #include "display.h"
 
 #include "data.h"
+#include "drawhelper.h"
 
 #include <Gamebuino-Meta.h>
 
@@ -20,11 +21,6 @@ void DisplayCollector::push(const Position& position)
 {
     const auto caterpillar = getCaterpillarData();
 
-    const uint8_t width = 8;
-    const uint8_t height = 8;
-    const auto corrected_x = position.x * width;
-    const auto corrected_y = position.y * height;
-
     int frame = 2;
 
     if (head) {
@@ -41,7 +37,8 @@ void DisplayCollector::push(const Position& position)
 
     Image spritesheet(caterpillar);
     spritesheet.setFrame(frame);
-    gb.display.drawImage(corrected_x, corrected_y, spritesheet);
+
+    drawImageOnGrid(position, spritesheet);
 
     if (head) {
         head = false;

@@ -1,6 +1,7 @@
 #include "fruitcollection.h"
 
 #include "data.h"
+#include "drawhelper.h"
 
 #include <Gamebuino-Meta.h>
 
@@ -24,9 +25,6 @@ FruitCollection::FruitCollection()
 
 void FruitCollection::display()
 {
-    const uint8_t width = 8;
-    const uint8_t height = 8;
-
     const auto caterpillar = getCaterpillarData();
     Image spritesheet(caterpillar);
     spritesheet.setFrame(0);
@@ -34,9 +32,7 @@ void FruitCollection::display()
     const Position nullPosition{ 0, 0 };
     for (const auto& fruit : fruits) {
         if (fruit.position != nullPosition) {
-            const auto corrected_x = fruit.position.x * width;
-            const auto corrected_y = fruit.position.y * height;
-            gb.display.drawImage(corrected_x, corrected_y, spritesheet);
+            drawImageOnGrid(fruit.position, spritesheet);
         }
     }
 }
