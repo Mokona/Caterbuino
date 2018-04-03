@@ -51,6 +51,6 @@ private:
     move_cb_type on_self_collision_cb;
     move_cb_type on_out_of_bounds_cb;
 
-    uint8_t tickAccumulator;
+    uint8_t tickAccumulator = 0;
     bool growing;
 };
