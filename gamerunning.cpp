@@ -28,26 +28,6 @@ namespace {
         0x17C, 0x17A, 0x178, 0x0000 };
 }
 
-LightAnimation::LightAnimation()
-{
-    gb.lights.fill(BLACK);
-}
-
-void LightAnimation::update()
-{
-    if (step > 0) {
-        step--;
-        gb.lights.fill(BLACK);
-        gb.lights.drawPixel(0, step - 1, GREEN);
-        gb.lights.drawPixel(1, step - 1, GREEN);
-    }
-}
-
-void LightAnimation::go()
-{
-    step = 4;
-}
-
 GameRunning::GameRunning()
     : space(0, 0, 10, 7)
 {

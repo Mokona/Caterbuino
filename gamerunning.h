@@ -6,19 +6,9 @@
 #include "fruitcollection.h"
 #include "fruitgenerator.h"
 #include "game_space.h"
+#include "lightanimation.h"
 #include "score.h"
 #include "snake.h"
-
-class LightAnimation {
-public:
-    LightAnimation();
-
-    void update();
-    void go();
-
-private:
-    int step;
-};
 
 class GameRunning : public GameState {
 public:
