@@ -21,8 +21,8 @@ public:
 
 private:
     std::default_random_engine generator;
-    std::uniform_int_distribution<int> width_distribution;
-    std::uniform_int_distribution<int> height_distribution;
+    std::uniform_int_distribution<uint8_t> width_distribution;
+    std::uniform_int_distribution<uint8_t> height_distribution;
 };
 
 GameSpace::GameSpace(uint8_t left, uint8_t up, uint8_t right, uint8_t down)
