@@ -9,7 +9,7 @@ struct Vector2D {
 };
 
 template <typename T1, typename T2>
-auto operator+(const Vector2D<T1>& a, const Vector2D<T2>& b)
+Vector2D<T1> operator+(const Vector2D<T1>& a, const Vector2D<T2>& b)
 {
     return Vector2D<T1>{
         a.x + b.x,
