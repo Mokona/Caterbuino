@@ -28,6 +28,26 @@ namespace {
         0x17C, 0x17A, 0x178, 0x0000 };
 }
 
+LightAnimation::LightAnimation()
+{
+    gb.lights.fill(BLACK);
+}
+
+void LightAnimation::update()
+{
+    if (step > 0) {
+        step--;
+        gb.lights.fill(BLACK);
+        gb.lights.drawPixel(0, step - 1, GREEN);
+        gb.lights.drawPixel(1, step - 1, GREEN);
+    }
+}
+
+void LightAnimation::go()
+{
+    step = 4;
+}
+
 GameRunning::GameRunning()
     : space(0, 0, 10, 7)
 {
@@ -40,7 +60,11 @@ GameRunning::GameRunning()
 
     auto& captured_fruit_collection = fruitCollection;
     auto& captured_snake = snake;
-    snake.on_eat([&captured_fruit_collection, &captured_snake, &captured_score](const Fruit& fruit) {
+    auto& captured_lights = lights;
+    snake.on_eat([&captured_fruit_collection,
+                     &captured_snake,
+                     &captured_score,
+                     &captured_lights](const Fruit& fruit) {
         captured_fruit_collection.remove_fruit(fruit.position);
         captured_snake.grow();
 
@@ -48,6 +72,7 @@ GameRunning::GameRunning()
         captured_score += score;
 
         gb.sound.play(fruitSound);
+        captured_lights.go();
     });
 
     snake.on_self_collision([this]() {
@@ -68,6 +93,7 @@ void GameRunning::update()
     snake.update(1, space, fruitCollection);
     fruitGenerator.update(1, fruitCollection, space, snake);
     fruitCollection.update(1);
+    lights.update();
 
     fruitCollection.display();
     snake.display(dsp);

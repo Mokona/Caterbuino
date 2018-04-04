@@ -9,6 +9,17 @@
 #include "score.h"
 #include "snake.h"
 
+class LightAnimation {
+public:
+    LightAnimation();
+
+    void update();
+    void go();
+
+private:
+    int step;
+};
+
 class GameRunning : public GameState {
 public:
     GameRunning();
@@ -29,5 +40,6 @@ private:
     FruitGenerator fruitGenerator;
     Score score;
     DisplayCollector dsp;
+    LightAnimation lights;
     bool gameOver = false;
 };
