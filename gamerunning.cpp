@@ -21,6 +21,11 @@ namespace {
             snake.right();
         }
     }
+
+    uint16_t fruitSound[] = { 0x0005, 0x148, 0x158, 0x168, 0x0000 };
+    uint16_t moveSound[] = { 0x0005, 0x118, 0x128, 0x0000 };
+    uint16_t gameOverSound[] = { 0x0005, 0x188, 0x186, 0x180, 0x17E,
+        0x17C, 0x17A, 0x178, 0x0000 };
 }
 
 GameRunning::GameRunning()
@@ -29,6 +34,8 @@ GameRunning::GameRunning()
     auto& captured_score = score;
     snake.on_move([&captured_score]() {
         captured_score += 1;
+
+        gb.sound.play(moveSound);
     });
 
     auto& captured_fruit_collection = fruitCollection;
@@ -39,6 +46,8 @@ GameRunning::GameRunning()
 
         const int score = (50 * fruit.life) / fruit.max_life();
         captured_score += score;
+
+        gb.sound.play(fruitSound);
     });
 
     snake.on_self_collision([this]() {
@@ -67,12 +76,18 @@ void GameRunning::update()
 
 void GameRunning::self_collision()
 {
-    gameOver = true;
+    game_over();
 }
 
 void GameRunning::out_of_bounds()
 {
+    game_over();
+}
+
+void GameRunning::game_over()
+{
     gameOver = true;
+    gb.sound.play(gameOverSound);
 }
 
 bool GameRunning::finished()

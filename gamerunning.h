@@ -20,6 +20,7 @@ public:
 private:
     void self_collision();
     void out_of_bounds();
+    void game_over();
 
 private:
     GameSpace space;
