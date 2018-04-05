@@ -1,5 +1,7 @@
 #include "game_space.h"
 
+#include "seed.h"
+
 #include <random>
 
 class RandomPositionGenerator {
@@ -8,6 +10,7 @@ public:
         : width_distribution(left, right)
         , height_distribution(up, down - 1)
     {
+        generator.seed(get_seed());
     }
 
     ~RandomPositionGenerator() {}
