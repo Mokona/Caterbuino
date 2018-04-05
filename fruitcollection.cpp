@@ -27,7 +27,9 @@ void FruitCollection::display()
     spritesheet.setFrame(0);
 
     for (const auto& fruit : fruits) {
-        drawImageOnGrid(fruit.position, spritesheet);
+        if (fruit.life > 10 || (fruit.life & 1)) {
+            drawImageOnGrid(fruit.position, spritesheet);
+        }
     }
 }
 
