@@ -1,6 +1,7 @@
 #include "display.h"
 
 #include "data.h"
+#include "directions.h"
 #include "drawhelper.h"
 
 #include <Gamebuino-Meta.h>
@@ -10,13 +11,6 @@ void DisplayCollector::begin()
     head = true;
 }
 
-namespace {
-    const Vector2D<int8_t> UP_MOVEMENT = { 0, -1 };
-    const Vector2D<int8_t> DOWN_MOVEMENT = { 0, 1 };
-    const Vector2D<int8_t> LEFT_MOVEMENT = { -1, 0 };
-    const Vector2D<int8_t> RIGHT_MOVEMENT = { 1, 0 };
-}
-
 void DisplayCollector::push(const Position& position)
 {
     const auto caterpillar = getCaterpillarData();
@@ -24,6 +18,8 @@ void DisplayCollector::push(const Position& position)
     int frame = 2;
 
     if (head) {
+        using namespace Direction;
+
         if (direction == RIGHT_MOVEMENT) {
             frame = 3;
         } else if (direction == DOWN_MOVEMENT) {

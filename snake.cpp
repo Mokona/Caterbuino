@@ -1,5 +1,6 @@
 #include "snake.h"
 
+#include "directions.h"
 #include "display.h"
 #include "fruitcollection.h"
 #include "game_space.h"
@@ -8,11 +9,6 @@
 namespace {
     const uint8_t tickForStep = 10;
     const size_t MAXIMUM_SNAKE_LENGTH = 42;
-
-    const Snake::movement_type UP_MOVEMENT = { 0, -1 };
-    const Snake::movement_type DOWN_MOVEMENT = { 0, 1 };
-    const Snake::movement_type LEFT_MOVEMENT = { -1, 0 };
-    const Snake::movement_type RIGHT_MOVEMENT = { 1, 0 };
 
     template <typename T>
     bool is_full(const std::vector<T>& t)
@@ -98,6 +94,8 @@ void Snake::grow()
 
 void Snake::up()
 {
+    using namespace Direction;
+
     if (current_movement != DOWN_MOVEMENT) {
         next_movement = UP_MOVEMENT;
     }
@@ -105,6 +103,8 @@ void Snake::up()
 
 void Snake::down()
 {
+    using namespace Direction;
+
     if (current_movement != UP_MOVEMENT) {
         next_movement = DOWN_MOVEMENT;
     }
@@ -112,6 +112,8 @@ void Snake::down()
 
 void Snake::left()
 {
+    using namespace Direction;
+
     if (current_movement != RIGHT_MOVEMENT) {
         next_movement = LEFT_MOVEMENT;
     }
@@ -119,6 +121,8 @@ void Snake::left()
 
 void Snake::right()
 {
+    using namespace Direction;
+
     if (current_movement != LEFT_MOVEMENT) {
         next_movement = RIGHT_MOVEMENT;
     }
