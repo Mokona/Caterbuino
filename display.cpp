@@ -6,6 +6,15 @@
 
 #include <Gamebuino-Meta.h>
 
+DisplayCollector::DisplayCollector()
+    : spritesheet(new Gamebuino_Meta::Image(getCaterpillarData()))
+{
+}
+
+DisplayCollector::~DisplayCollector()
+{
+}
+
 void DisplayCollector::begin()
 {
     head = true;
@@ -13,8 +22,6 @@ void DisplayCollector::begin()
 
 void DisplayCollector::push(const Position& position)
 {
-    const auto caterpillar = getCaterpillarData();
-
     int frame = 2;
 
     if (head) {
@@ -31,10 +38,9 @@ void DisplayCollector::push(const Position& position)
         }
     }
 
-    Image spritesheet(caterpillar);
-    spritesheet.setFrame(frame);
+    spritesheet->setFrame(frame);
 
-    drawImageOnGrid(position, spritesheet);
+    drawImageOnGrid(position, *spritesheet);
 
     if (head) {
         head = false;

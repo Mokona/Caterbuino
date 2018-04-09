@@ -16,19 +16,22 @@ int Fruit::max_life()
 }
 
 FruitCollection::FruitCollection()
+    : spritesheet(new Gamebuino_Meta::Image(getCaterpillarData()))
 {
     fruits.reserve(MAXIMUM_FRUIT);
 }
 
+FruitCollection::~FruitCollection()
+{
+}
+
 void FruitCollection::display()
 {
-    const auto caterpillar = getCaterpillarData();
-    Image spritesheet(caterpillar);
-    spritesheet.setFrame(0);
+    spritesheet->setFrame(0);
 
     for (const auto& fruit : fruits) {
         if (fruit.life > 10 || (fruit.life & 1)) {
-            drawImageOnGrid(fruit.position, spritesheet);
+            drawImageOnGrid(fruit.position, *spritesheet);
         }
     }
 }

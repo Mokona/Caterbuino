@@ -2,8 +2,17 @@
 
 #include "position.h"
 
+#include <memory>
+
+namespace Gamebuino_Meta {
+    class Image;
+}
+
 class DisplayCollector {
 public:
+    DisplayCollector();
+    ~DisplayCollector();
+
     void begin();
 
     void head_direction(const Vector2D<int8_t> direction);
@@ -11,5 +20,6 @@ public:
 
 private:
     Vector2D<int8_t> direction;
+    std::unique_ptr<Gamebuino_Meta::Image> spritesheet;
     bool head;
 };
