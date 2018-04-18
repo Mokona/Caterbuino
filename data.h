@@ -2,4 +2,4 @@
 
 #include <cstdint>
 
-const uint16_t* getCaterpillarData();
+const uint8_t* getCaterpillarData();
