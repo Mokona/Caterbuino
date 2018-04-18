@@ -5,7 +5,7 @@
 
 class GameOver : public GameState {
 public:
-    GameOver(Score score);
+    explicit GameOver(Score score);
 
     void update() override;
     bool finished() override;

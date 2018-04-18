@@ -8,5 +8,5 @@ public:
     void go();
 
 private:
-    int step;
+    int step = 0;
 };

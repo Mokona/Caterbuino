@@ -19,7 +19,7 @@ public:
     void push(const Position& position);
 
 private:
-    Vector2D<int8_t> direction;
+    Vector2D<int8_t> direction = { 0, 0 };
     std::unique_ptr<Gamebuino_Meta::Image> spritesheet;
-    bool head;
+    bool head = false;
 };
