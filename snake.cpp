@@ -9,7 +9,7 @@
 namespace {
     const uint8_t BASE_TICK_FOR_STEP = 10;
     const uint8_t FRUITS_BEFORE_SPEED_UP = 3;
-    const size_t MAXIMUM_SNAKE_LENGTH = 10;
+    const size_t MAXIMUM_SNAKE_LENGTH = 20;
 
     template <typename T>
     bool is_full(const std::vector<T>& t)
