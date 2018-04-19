@@ -39,6 +39,7 @@ public:
 private:
     void move(const GameSpace& space);
     void eat(const FruitCollection& fruits);
+    void speed_up();
 
 private:
     movement_type next_movement;
@@ -52,5 +53,7 @@ private:
     move_cb_type on_out_of_bounds_cb;
 
     uint8_t tickAccumulator = 0;
-    bool growing;
+    uint8_t currentTickForStep;
+    uint8_t fruitSpeedUpCounter = 0;
+    bool growing = false;
 };

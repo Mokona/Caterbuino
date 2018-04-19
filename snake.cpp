@@ -7,8 +7,9 @@
 #include "reverse.h"
 
 namespace {
-    const uint8_t tickForStep = 10;
-    const size_t MAXIMUM_SNAKE_LENGTH = 42;
+    const uint8_t BASE_TICK_FOR_STEP = 10;
+    const uint8_t FRUITS_BEFORE_SPEED_UP = 3;
+    const size_t MAXIMUM_SNAKE_LENGTH = 10;
 
     template <typename T>
     bool is_full(const std::vector<T>& t)
@@ -20,7 +21,7 @@ namespace {
 Snake::Snake()
     : next_movement{ 1, 0 }
     , current_movement(next_movement)
-    , growing(false)
+    , currentTickForStep(BASE_TICK_FOR_STEP)
 {
     positions.reserve(MAXIMUM_SNAKE_LENGTH);
     positions.push_back(Position{ 3, 4 });
@@ -40,8 +41,8 @@ void Snake::update(uint8_t tick, const GameSpace& space, const FruitCollection& 
 {
     tickAccumulator += tick;
 
-    if (tickAccumulator >= tickForStep) {
-        tickAccumulator -= tickForStep;
+    if (tickAccumulator >= currentTickForStep) {
+        tickAccumulator -= currentTickForStep;
         move(space);
         eat(fruits);
     }
@@ -69,9 +70,16 @@ void Snake::move(const GameSpace& space)
             on_self_collision_cb();
         } else {
             positions.push_back(new_head);
-            if (!growing || is_full(positions)) {
+
+            const bool is_max_size = is_full(positions);
+
+            if (!growing || is_max_size) {
                 positions.erase(positions.begin());
             }
+            if (is_max_size && growing) {
+                speed_up();
+            }
+
             growing = false;
 
             on_move_cb();
@@ -85,6 +93,18 @@ void Snake::eat(const FruitCollection& fruits)
 {
     const auto& head = positions.back();
     fruits.try_eat_fruit(head, on_eat_cb);
+}
+
+void Snake::speed_up()
+{
+    fruitSpeedUpCounter += 1;
+
+    if (fruitSpeedUpCounter == FRUITS_BEFORE_SPEED_UP) {
+        fruitSpeedUpCounter = 0;
+        if (currentTickForStep > 1) {
+            currentTickForStep -= 1;
+        }
+    }
 }
 
 void Snake::grow()
