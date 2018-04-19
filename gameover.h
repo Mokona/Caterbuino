@@ -18,4 +18,5 @@ private:
     Score score;
     bool restartGame = false;
     uint8_t timeBeforeRetry = 30;
+    uint8_t currentYCoordForGameOver = 0;
 };

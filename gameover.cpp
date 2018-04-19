@@ -5,6 +5,10 @@
 #include <Gamebuino-Meta.h>
 #include <cassert>
 
+namespace {
+    const int TARGET_Y_COORD = 8;
+}
+
 GameOver::GameOver(Score score)
     : score(score)
 {
@@ -16,16 +20,19 @@ void GameOver::update()
         return;
     }
 
-    gb.display.setColor(Color::white);
+    if (currentYCoordForGameOver < TARGET_Y_COORD) {
+        currentYCoordForGameOver += 1;
+    }
+
+    gb.display.setColor(Color::green);
     gb.display.setFontSize(2);
-    gb.display.setCursor(5, 8);
+    gb.display.setCursor(5, currentYCoordForGameOver);
     gb.display.println("GAME OVER");
 
     score.display();
 
     if (timeBeforeRetry > 0) {
         timeBeforeRetry -= 1;
-
     } else {
         gb.display.setFontSize(1);
         gb.display.setCursor(1, 35);
