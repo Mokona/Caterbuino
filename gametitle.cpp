@@ -16,6 +16,11 @@ void GameTitle::update()
 {
     gb.display.drawImage(0, 0, *titleImage);
 
+    gb.display.setColor(Color::gray);
+    gb.display.setFontSize(1);
+    gb.display.setCursor(64, 59);
+    gb.display.println("v0.9");
+
     if (gb.buttons.pressed(BUTTON_A)) {
         start_game();
     }
