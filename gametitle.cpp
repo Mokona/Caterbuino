@@ -7,9 +7,18 @@
 
 #include <cassert>
 
+namespace {
+    uint16_t gameStartSound[] = {
+        0x0005,
+        0x178, 0x17A, 0x27C, 0x17E, 0x180, 0x286, 0x188,
+        0x0000
+    };
+}
+
 GameTitle::GameTitle()
     : titleImage(new Gamebuino_Meta::Image(getTitleData()))
 {
+    gb.sound.play(gameStartSound);
 }
 
 void GameTitle::update()
