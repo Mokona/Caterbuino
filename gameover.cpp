@@ -14,6 +14,8 @@
 
 namespace {
     const uint8_t VALUE_FOR_BLINK = 10;
+    const uint16_t ICON_COORD_X = 60;
+    const uint16_t ICON_COORD_Y = 30;
 }
 
 class RetryOrTitle {
@@ -35,11 +37,11 @@ public:
     void display()
     {
         iconAtlas.setFrame(8);
-        gb.display.drawImage(60, 30, iconAtlas);
+        gb.display.drawImage(ICON_COORD_X, ICON_COORD_Y, iconAtlas);
 
         if (highlight) {
             iconAtlas.setFrame(9);
-            gb.display.drawImage(60, 30, iconAtlas);
+            gb.display.drawImage(ICON_COORD_X, ICON_COORD_Y, iconAtlas);
         }
 
         gb.display.setFontSize(1);
