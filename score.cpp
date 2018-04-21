@@ -2,9 +2,14 @@
 
 #include <Gamebuino-Meta.h>
 
+namespace {
+    int16_t MAX_SCORE = 9999;
+}
+
 Score& Score::operator+=(int16_t change)
 {
     value += change;
+    value = min(value, MAX_SCORE);
 
     return *this;
 }
