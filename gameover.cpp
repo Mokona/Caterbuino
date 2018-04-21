@@ -9,15 +9,32 @@
 namespace {
     const int TARGET_Y_COORD = 8;
     const uint8_t VALUE_FOR_BLINK = 10;
+}
 
-    void displayGameOverText(uint8_t coord_y)
+class GameOverTitle {
+public:
+    GameOverTitle()
+    {
+    }
+
+    void update()
+    {
+        if (y_coordinate < TARGET_Y_COORD) {
+            y_coordinate += 1;
+        }
+    }
+
+    void display()
     {
         gb.display.setColor(Color::lightgreen);
         gb.display.setFontSize(2);
-        gb.display.setCursor(5, coord_y);
+        gb.display.setCursor(5, y_coordinate);
         gb.display.println("GAME OVER");
     }
-}
+
+private:
+    uint8_t y_coordinate = 0;
+};
 
 class RetryOrTitle {
 public:
@@ -60,6 +77,7 @@ private:
 GameOver::GameOver(Score score)
     : score(score)
     , choice(new RetryOrTitle())
+    , title(new GameOverTitle())
 {
 }
 
@@ -69,11 +87,9 @@ void GameOver::update()
         return;
     }
 
-    if (currentYCoordForGameOver < TARGET_Y_COORD) {
-        currentYCoordForGameOver += 1;
-    }
+    title->update();
+    title->display();
 
-    displayGameOverText(currentYCoordForGameOver);
     score.display();
 
     if (timeBeforeRetry > 0) {

@@ -6,6 +6,7 @@
 #include <memory>
 
 class RetryOrTitle;
+class GameOverTitle;
 
 class GameOver : public GameState {
 public:
@@ -21,7 +22,7 @@ private:
 private:
     Score score;
     std::unique_ptr<RetryOrTitle> choice;
+    std::unique_ptr<GameOverTitle> title;
     bool restartGame = false;
     uint8_t timeBeforeRetry = 30;
-    uint8_t currentYCoordForGameOver = 0;
 };
