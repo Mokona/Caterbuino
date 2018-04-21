@@ -6,6 +6,8 @@ namespace Gamebuino_Meta {
     class Image;
 }
 
+class ButtonWidget;
+
 class GameTitle : public GameState {
 public:
     explicit GameTitle();
@@ -16,6 +18,7 @@ public:
 
 private:
     std::unique_ptr<Gamebuino_Meta::Image> titleImage;
+    std::unique_ptr<ButtonWidget> startGameDisplay;
     bool next_state = false;
 
     void start_game();
