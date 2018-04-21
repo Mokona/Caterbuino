@@ -5,7 +5,7 @@
 
 #include <memory>
 
-class RetryOrTitle;
+class ButtonWidget;
 class GameOverTitle;
 
 class GameOver : public GameState {
@@ -21,7 +21,7 @@ private:
 
 private:
     Score score;
-    std::unique_ptr<RetryOrTitle> choice;
+    std::unique_ptr<ButtonWidget> buttonWidget;
     std::unique_ptr<GameOverTitle> title;
     bool restartGame = false;
     uint8_t timeBeforeRetry = 30;

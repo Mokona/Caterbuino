@@ -1,5 +1,6 @@
 #include "gameover.h"
 
+#include "buttonwidget.h"
 #include "data_icons.h"
 #include "gameovertitle.h"
 #include "gametitle.h"
@@ -14,51 +15,18 @@
 
 namespace {
     const uint8_t VALUE_FOR_BLINK = 10;
-    const uint16_t ICON_COORD_X = 60;
-    const uint16_t ICON_COORD_Y = 30;
+
+    const char* PLAY_AGAIN_TEXT = "PLAY AGAIN";
+    ButtonWidget::Parameters widgetParameters = {
+        { 60, 30 },
+        { 5, 35 },
+        PLAY_AGAIN_TEXT
+    };
 }
-
-class RetryOrTitle {
-public:
-    RetryOrTitle()
-        : iconAtlas(getIconsData())
-    {
-    }
-
-    void update()
-    {
-        count -= 1;
-        if (count == 0) {
-            count = VALUE_FOR_BLINK;
-            highlight = !highlight;
-        }
-    }
-
-    void display()
-    {
-        iconAtlas.setFrame(8);
-        gb.display.drawImage(ICON_COORD_X, ICON_COORD_Y, iconAtlas);
-
-        if (highlight) {
-            iconAtlas.setFrame(9);
-            gb.display.drawImage(ICON_COORD_X, ICON_COORD_Y, iconAtlas);
-        }
-
-        gb.display.setFontSize(1);
-        gb.display.setColor(Color::lightblue);
-        gb.display.setCursor(5, 35);
-        gb.display.println("PLAY AGAIN");
-    }
-
-private:
-    Gamebuino_Meta::Image iconAtlas;
-    bool highlight = false;
-    uint8_t count = VALUE_FOR_BLINK;
-};
 
 GameOver::GameOver(Score score)
     : score(score)
-    , choice(new RetryOrTitle())
+    , buttonWidget(new ButtonWidget(widgetParameters))
     , title(new GameOverTitle())
 {
 }
@@ -77,8 +45,8 @@ void GameOver::update()
     if (timeBeforeRetry > 0) {
         timeBeforeRetry -= 1;
     } else {
-        choice->update();
-        choice->display();
+        buttonWidget->update();
+        buttonWidget->display();
 
         if (gb.buttons.pressed(BUTTON_A)) {
             play_again();
