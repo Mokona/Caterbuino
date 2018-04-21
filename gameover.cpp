@@ -1,7 +1,7 @@
 #include "gameover.h"
 
 #include "data_icons.h"
-#include "gamerunning.h"
+#include "gametitle.h"
 
 #include <Gamebuino-Meta.h>
 #include <cassert>
@@ -65,7 +65,7 @@ GameOver::GameOver(Score score)
 
 void GameOver::update()
 {
-    if (restartGame) {
+    if (finished()) {
         return;
     }
 
@@ -102,5 +102,6 @@ std::unique_ptr<GameState> GameOver::new_state()
 {
     assert(restartGame);
     restartGame = false;
-    return std::unique_ptr<GameState>(new GameRunning());
+
+    return std::unique_ptr<GameState>(new GameTitle());
 }
