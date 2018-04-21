@@ -3,6 +3,10 @@
 #include "gamestate.h"
 #include "score.h"
 
+#include <memory>
+
+class RetryOrTitle;
+
 class GameOver : public GameState {
 public:
     explicit GameOver(Score score);
@@ -16,6 +20,7 @@ private:
 
 private:
     Score score;
+    std::unique_ptr<RetryOrTitle> choice;
     bool restartGame = false;
     uint8_t timeBeforeRetry = 30;
     uint8_t currentYCoordForGameOver = 0;
