@@ -1,6 +1,6 @@
 #include "fruitcollection.h"
 
-#include "data.h"
+#include "data_caterpillar.h"
 #include "drawhelper.h"
 
 #include <Gamebuino-Meta.h>

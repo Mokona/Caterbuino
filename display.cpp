@@ -1,6 +1,6 @@
 #include "display.h"
 
-#include "data.h"
+#include "data_caterpillar.h"
 #include "directions.h"
 #include "drawhelper.h"
 
