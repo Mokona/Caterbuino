@@ -19,6 +19,7 @@ To build Caterbuino, clone the repository and open it with the `Arduino IDE`. Yo
 
 Caterbuino is dependant on the Gamebuino-META SDK obsiously, so it must have been installed on your Arduino toolchain. How to do this is available on the [Gamebuino-META](https://gamebuino.com/) official site.
 
+## Author
 
-
+Game by Sylvain Glaize
 
