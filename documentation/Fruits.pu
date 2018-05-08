@@ -1,0 +1,38 @@
+@startuml
+class Fruit {
+	+position : Position
+	+life : int
+	+{static} max_life() : int
+}
+
+class FruitCollection {
+	+FruitCollection()
+	+~FruitCollection()
+	+update(int tick) : void
+	+display() : void
+	+add_fruit(const Position& position) : void
+	+remove_fruit(const Position& position) : void
+	+try_eat_fruit(const Position& position, std::function<void(constFruit&fruit)> eat_cb) : void {query}
+	-spritesheet : std::unique_ptr<Gamebuino_Meta::Image>
+	-fruits : std::vector<Fruit>
+}
+
+class FruitGenerator {
+	-tickAccumulator : uint8_t
+	+update(int tick, FruitCollection& collection, GameSpace& space, Snake& snake) : void
+}
+
+
+class GameSpace {
+}
+
+FruitCollection o-- Fruit
+FruitGenerator ..> Fruit
+FruitGenerator ..> Snake
+FruitGenerator ..> GameSpace
+FruitGenerator ..> FruitCollection
+Snake ..> Fruit
+Snake ..> FruitCollection
+Snake ..> GameSpace
+
+@enduml

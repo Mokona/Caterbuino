@@ -1,0 +1,64 @@
+@startuml
+class DisplayCollector {
+}
+
+class Fruit {
+}
+
+class FruitCollection {
+}
+
+class FruitGenerator {
+}
+
+class GameOver {
+}
+
+class GameRunning {
+	+GameRunning()
+	+update() : void
+	+finished() : bool
+	+new_state() : std::unique_ptr<GameState>
+	-dsp : DisplayCollector
+	-fruitCollection : FruitCollection
+	-fruitGenerator : FruitGenerator
+	-space : GameSpace
+	-lights : LightAnimation
+	-score : Score
+	-snake : Snake
+	-gameOver : bool
+	-game_over() : void
+	-out_of_bounds() : void
+	-self_collision() : void
+}
+
+class GameSpace {
+}
+
+abstract class GameState {
+}
+
+class LightAnimation {
+}
+
+GameState <|-- GameOver
+GameState <|-- GameRunning
+FruitCollection o-- Fruit
+FruitGenerator ..> Fruit
+FruitGenerator ..> Snake
+FruitGenerator ..> GameSpace
+GameRunning o-- DisplayCollector
+GameRunning o-- FruitCollection
+GameRunning o-- FruitGenerator
+GameRunning o-- GameSpace
+GameRunning o-- LightAnimation
+GameRunning o-- Score
+GameRunning o-- Snake
+GameRunning ..> Fruit
+GameRunning .right.> GameOver
+Snake ..> DisplayCollector
+Snake ..> Fruit
+Snake ..> FruitCollection
+Snake ..> GameSpace
+
+@enduml

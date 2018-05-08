@@ -1,0 +1,40 @@
+@startuml
+
+abstract class GameState {
+	+~GameState()
+	+{abstract} finished() : bool
+	+{abstract} new_state() : std::unique_ptr<GameState>
+	+{abstract} update() : void
+}
+
+together {
+    class GameOver {
+        +GameOver(Score score)
+        +finished() : bool
+        +new_state() : std::unique_ptr<GameState>
+        +update() : void
+    }
+
+    class GameRunning {
+        +GameRunning()
+        +finished() : bool
+        +new_state() : std::unique_ptr<GameState>
+        +update() : void
+    }
+
+    class GameTitle {
+        +GameTitle()
+        +finished() : bool
+        +new_state() : std::unique_ptr<GameState>
+        +update() : void
+    }
+}
+
+GameState <|-- GameOver
+GameState <|-- GameRunning
+GameState <|-- GameTitle
+
+GameTitle .right.> GameRunning
+GameRunning .right.> GameOver
+
+@enduml

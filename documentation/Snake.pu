@@ -1,0 +1,53 @@
+@startuml
+class DisplayCollector {
+}
+
+class Fruit {
+}
+
+class FruitCollection {
+}
+
+class GameSpace {
+}
+
+class Snake {
+	+Snake()
+	+update(uint8_t tick, const GameSpace& space, const FruitCollection& fruits) : void
+	+up() : void
+	+down() : void
+	+left() : void
+	+right() : void
+	+grow() : void
+	+display(DisplayCollector& dsp) : void
+	+is_at(const Position& position) : bool
+	+on_eat(eat_cb_type cb) : void
+	+on_move(move_cb_type cb) : void
+	+on_out_of_bounds(move_cb_type cb) : void
+	+on_self_collision(move_cb_type cb) : void
+	-growing : bool
+	-on_eat_cb : eat_cb_type
+	-on_move_cb : move_cb_type
+	-on_out_of_bounds_cb : move_cb_type
+	-on_self_collision_cb : move_cb_type
+	-current_movement : movement_type
+	-next_movement : movement_type
+	-positions : std::vector<Position>
+	-currentTickForStep : uint8_t
+	-fruitSpeedUpCounter : uint8_t
+	-tickAccumulator : uint8_t
+	-eat(const FruitCollection& fruits) : void
+	-move(const GameSpace& space) : void
+	-speed_up() : void
+}
+
+Snake ..> DisplayCollector
+Snake ..> GameSpace
+Snake ..> FruitCollection
+Snake ..> Fruit
+Snake ..> Position
+
+
+FruitCollection o-- Fruit
+
+@enduml

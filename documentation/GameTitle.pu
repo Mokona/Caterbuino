@@ -1,0 +1,35 @@
+@startuml
+class ButtonWidget {
+	+ButtonWidget(Parameters parameters)
+	-iconAtlas : Gamebuino_Meta::Image
+	-parameters : Parameters
+	-highlight : bool
+	-count : uint8_t
+	+display() : void
+	+update() : void
+}
+
+class ButtonWidget::Parameters {
+}
+
+abstract class GameState {
+}
+
+class GameTitle {
+	+GameTitle()
+	+finished() : bool
+	-next_state : bool
+	-startGameDisplay : std::unique_ptr<ButtonWidget>
+	+new_state() : std::unique_ptr<GameState>
+	-titleImage : std::unique_ptr<Gamebuino_Meta::Image>
+	-start_game() : void
+	+update() : void
+}
+
+GameState <|-- GameTitle
+GameTitle o-- ButtonWidget
+GameTitle .right.> GameRunning
+ButtonWidget ..> ButtonWidget::Parameters
+GameTitle ..> ButtonWidget::Parameters
+
+@enduml
