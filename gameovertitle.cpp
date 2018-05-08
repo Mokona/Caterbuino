@@ -1,9 +1,6 @@
 #include "gameovertitle.h"
 
-#include <Gamebuino-Meta.h>
-
-#undef min
-#undef max
+#include "gamebuino_fix.h"
 
 #include <algorithm>
 #include <cstring>

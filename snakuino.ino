@@ -1,8 +1,4 @@
-#include <Gamebuino-Meta.h>
-
-// Because Arduino has min/max macros that conflicts with STL
-#undef max
-#undef min
+#include "gamebuino_fix.h"
 
 #include "gameinit.h"
 #include "profile.h"

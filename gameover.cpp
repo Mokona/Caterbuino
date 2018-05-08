@@ -5,10 +5,7 @@
 #include "gameovertitle.h"
 #include "gametitle.h"
 
-#include <Gamebuino-Meta.h>
-
-#undef min
-#undef max
+#include "gamebuino_fix.h"
 
 #include <cassert>
 #include <vector>

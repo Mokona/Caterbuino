@@ -4,7 +4,7 @@
 #include "directions.h"
 #include "drawhelper.h"
 
-#include <Gamebuino-Meta.h>
+#include "gamebuino_fix.h"
 
 DisplayCollector::DisplayCollector()
     : spritesheet(new Gamebuino_Meta::Image(getCaterpillarData()))

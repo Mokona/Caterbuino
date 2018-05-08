@@ -3,7 +3,7 @@
 #include "data_caterpillar.h"
 #include "drawhelper.h"
 
-#include <Gamebuino-Meta.h>
+#include "gamebuino_fix.h"
 
 namespace {
     const int INITIAL_FRUIT_LIFE = 225;

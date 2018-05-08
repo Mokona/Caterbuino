@@ -2,10 +2,7 @@
 
 #include "position.h"
 
-#include <Gamebuino-Meta.h>
-
-#undef min
-#undef max
+#include "gamebuino_fix.h"
 
 class ButtonWidget {
 public:
