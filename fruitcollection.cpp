@@ -5,6 +5,8 @@
 
 #include "gamebuino_fix.h"
 
+#include <algorithm>
+
 namespace {
     const int INITIAL_FRUIT_LIFE = 225;
     const size_t MAXIMUM_FRUIT = 10;
@@ -54,7 +56,15 @@ void FruitCollection::update(int tick)
 void FruitCollection::add_fruit(const Position& position)
 {
     if (fruits.size() < fruits.capacity()) {
-        fruits.push_back(Fruit{ position, INITIAL_FRUIT_LIFE });
+        const auto fruit_at_position = std::any_of(
+            fruits.begin(), fruits.end(),
+            [position](const Fruit& fruit) {
+                return fruit.position == position;
+            });
+
+        if (!fruit_at_position) {
+            fruits.push_back(Fruit{ position, INITIAL_FRUIT_LIFE });
+        }
     }
 }
 

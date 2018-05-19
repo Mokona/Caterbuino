@@ -89,9 +89,7 @@ The fruits are handled by a generator and a collection. The generator creates fr
 
 #### `FruitGenerator`
 
-`FruitGenerator` has a frequency of generation. Each time it has to generate a fruit, it asks the `GameSpace` for a random position. If a portion of the snake is at the position, then the fruit is not generated. 
-
-*Note*: if a fruit is already there... well, there are two fruits at the same position, which is not intended (meaning: that's a bug to fix). A generated fruit is added to the collection.
+`FruitGenerator` has a frequency of generation. Each time it has to generate a fruit, it asks the `GameSpace` for a random position. If a portion of the snake is at the position or a fruit is already there, then the fruit is not generated. 
 
 #### `FruitCollection`
 
