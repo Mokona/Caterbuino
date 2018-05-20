@@ -51,17 +51,22 @@ void GameTitle::update()
 
 void GameTitle::start_game()
 {
-    next_state = true;
+    action = GO_TO_GAME;
+}
+
+void GameTitle::start_credits()
+{
+    action = GO_TO_CREDITS;
 }
 
 bool GameTitle::finished()
 {
-    return next_state;
+    return action != STAY_HERE;
 }
 
 std::unique_ptr<GameState> GameTitle::new_state()
 {
-    assert(next_state);
-    next_state = false;
+    assert(finished());
+    action = STAY_HERE;
     return std::unique_ptr<GameState>(new GameRunning());
 }

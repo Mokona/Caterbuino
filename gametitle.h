@@ -19,7 +19,15 @@ public:
 private:
     std::unique_ptr<Gamebuino_Meta::Image> titleImage;
     std::unique_ptr<ButtonWidget> startGameDisplay;
-    bool next_state = false;
+
+    enum Action {
+        STAY_HERE,
+        GO_TO_GAME,
+        GO_TO_CREDITS
+    };
+
+    Action action = STAY_HERE;
 
     void start_game();
+    void start_credits();
 };
