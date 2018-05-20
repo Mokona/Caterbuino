@@ -10,7 +10,7 @@ class ButtonWidget;
 
 class GameTitle : public GameState {
 public:
-    explicit GameTitle();
+    GameTitle();
 
     void update() override;
     bool finished() override;
