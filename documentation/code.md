@@ -22,7 +22,7 @@ It's useful mainly to check if playing the game doesn't lead to memory leaks.
 
 ### The GameState
 
-`GameState` is an interface used by every state of the game. Consider a state as a distinct part of the game flow. In Caterbuino, there are three states: the game title, the gameplay part and a game over.
+`GameState` is an interface used by every state of the game. Consider a state as a distinct part of the game flow. In Caterbuino, there are four states: the game title, the credit part, the gameplay part and a game over.
 
 Each state is represented by a class that is in charge of the operations for this particular state, including when it is time to go to the next state.
 

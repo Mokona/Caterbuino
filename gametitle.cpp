@@ -2,6 +2,7 @@
 
 #include "buttonwidget.h"
 #include "data_title.h"
+#include "gamecredits.h"
 #include "gamerunning.h"
 
 #include "gamebuino_fix.h"
@@ -14,8 +15,6 @@ namespace {
         0x178, 0x17A, 0x27C, 0x17E, 0x180, 0x286, 0x188,
         0x0000
     };
-
-    const uint8_t VALUE_FOR_BLINK = 10;
 
     const char* PLAY_TEXT = "PLAY";
     ButtonWidget::Parameters widgetParameters = {
@@ -46,6 +45,8 @@ void GameTitle::update()
 
     if (gb.buttons.pressed(BUTTON_A)) {
         start_game();
+    } else if (gb.buttons.pressed(BUTTON_MENU)) {
+        start_credits();
     }
 }
 
@@ -67,6 +68,18 @@ bool GameTitle::finished()
 std::unique_ptr<GameState> GameTitle::new_state()
 {
     assert(finished());
+
+    auto& take_action = action;
+    auto state = [take_action]() -> std::unique_ptr<GameState> {
+        switch (take_action) {
+        case GO_TO_GAME:
+            return std::unique_ptr<GameState>(new GameRunning());
+        case GO_TO_CREDITS:
+            return std::unique_ptr<GameState>(new GameCredits());
+        }
+        return {};
+    }();
     action = STAY_HERE;
-    return std::unique_ptr<GameState>(new GameRunning());
-}
+
+    return state;
+};

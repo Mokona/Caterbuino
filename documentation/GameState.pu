@@ -1,10 +1,10 @@
 @startuml
 
 abstract class GameState {
-	+~GameState()
-	+{abstract} finished() : bool
-	+{abstract} new_state() : std::unique_ptr<GameState>
-	+{abstract} update() : void
+    +~GameState()
+    +{abstract} finished() : bool
+    +{abstract} new_state() : std::unique_ptr<GameState>
+    +{abstract} update() : void
 }
 
 together {
@@ -28,11 +28,19 @@ together {
         +new_state() : std::unique_ptr<GameState>
         +update() : void
     }
+
+    class GameCredits {
+        +GameCredits()
+        +finished() : bool
+        +new_state() : std::unique_ptr<GameState>
+        +update() : void
+    }
 }
 
 GameState <|-- GameOver
 GameState <|-- GameRunning
 GameState <|-- GameTitle
+GameState <|-- GameCredits
 
 GameTitle .right.> GameRunning
 GameRunning .right.> GameOver
