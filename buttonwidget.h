@@ -6,9 +6,15 @@
 
 class ButtonWidget {
 public:
+    enum ButtonType {
+        BLINK_A,
+        BLINK_MENU
+    };
+
     struct Parameters {
         Position buttonPlacement;
         Position textPlacement;
+        ButtonType buttonType;
         const char* text;
     };
 

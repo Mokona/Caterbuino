@@ -17,6 +17,7 @@ namespace {
     ButtonWidget::Parameters widgetParameters = {
         { 60, 30 },
         { 5, 35 },
+        ButtonWidget::BLINK_A,
         PLAY_AGAIN_TEXT
     };
 }
