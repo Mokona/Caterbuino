@@ -19,7 +19,7 @@ public:
     };
 
 public:
-    ButtonWidget(Parameters parameters);
+    explicit ButtonWidget(Parameters parameters);
 
     void update();
     void display();
