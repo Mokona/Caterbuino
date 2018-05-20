@@ -8,12 +8,12 @@
 #include <cassert>
 
 namespace {
-    const char* PLAY_TEXT = "BACK";
+    const char* BACK_TEXT = "BACK";
     ButtonWidget::Parameters widgetParameters = {
-        { 25, 47 },
-        { 5, 52 },
+        { 65, 47 },
+        { 48, 52 },
         ButtonWidget::BLINK_MENU,
-        PLAY_TEXT
+        BACK_TEXT
     };
 }
 
@@ -38,6 +38,9 @@ void GameCredits::update()
     gb.display.println();
     gb.display.println("  CODE");
     gb.display.println("    S.GLAIZE");
+
+    backToTitleDisplay->update();
+    backToTitleDisplay->display();
 }
 
 void GameCredits::back_to_title()
