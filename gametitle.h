@@ -19,6 +19,7 @@ public:
 private:
     std::unique_ptr<Gamebuino_Meta::Image> titleImage;
     std::unique_ptr<ButtonWidget> startGameDisplay;
+    std::unique_ptr<ButtonWidget> goToCreditsDisplay;
 
     enum Action {
         STAY_HERE,
@@ -27,6 +28,11 @@ private:
     };
 
     Action action = STAY_HERE;
+
+    uint8_t alternateTimer;
+    uint8_t currentWidgetDisplayed = 0;
+
+    void widgetUpdateAndDisplay();
 
     void start_game();
     void start_credits();

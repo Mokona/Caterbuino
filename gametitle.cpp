@@ -17,17 +17,29 @@ namespace {
     };
 
     const char* PLAY_TEXT = "PLAY";
-    ButtonWidget::Parameters widgetParameters = {
+    ButtonWidget::Parameters startWidgetParameters = {
         { 25, 47 },
         { 5, 52 },
         ButtonWidget::BLINK_A,
         PLAY_TEXT
     };
+
+    const char* CREDITS_TEXT = "CREDITS";
+    ButtonWidget::Parameters creditWidgetParameters = {
+        { 30, 47 },
+        { 2, 52 },
+        ButtonWidget::BLINK_MENU,
+        CREDITS_TEXT
+    };
+
+    uint8_t TIME_FOR_ALTERNATE_WIDGET = 50;
 }
 
 GameTitle::GameTitle()
     : titleImage(new Gamebuino_Meta::Image(getTitleData()))
-    , startGameDisplay(new ButtonWidget(widgetParameters))
+    , startGameDisplay(new ButtonWidget(startWidgetParameters))
+    , goToCreditsDisplay(new ButtonWidget(creditWidgetParameters))
+    , alternateTimer(TIME_FOR_ALTERNATE_WIDGET)
 {
     gb.sound.play(gameStartSound);
 }
@@ -41,13 +53,30 @@ void GameTitle::update()
     gb.display.setCursor(64, 59);
     gb.display.println("v0.9");
 
-    startGameDisplay->update();
-    startGameDisplay->display();
+    widgetUpdateAndDisplay();
 
     if (gb.buttons.pressed(BUTTON_A)) {
         start_game();
     } else if (gb.buttons.pressed(BUTTON_MENU)) {
         start_credits();
+    }
+}
+
+void GameTitle::widgetUpdateAndDisplay()
+{
+    if (alternateTimer == 0) {
+        alternateTimer = TIME_FOR_ALTERNATE_WIDGET;
+        currentWidgetDisplayed = currentWidgetDisplayed == 0 ? 1 : 0;
+    } else {
+        alternateTimer -= 1;
+    }
+
+    if (currentWidgetDisplayed == 0) {
+        startGameDisplay->update();
+        startGameDisplay->display();
+    } else {
+        goToCreditsDisplay->update();
+        goToCreditsDisplay->display();
     }
 }
 
