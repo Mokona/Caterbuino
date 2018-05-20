@@ -1,7 +1,6 @@
 #include "gametitle.h"
 
 #include "buttonwidget.h"
-#include "data_icons.h"
 #include "data_title.h"
 #include "gamerunning.h"
 
